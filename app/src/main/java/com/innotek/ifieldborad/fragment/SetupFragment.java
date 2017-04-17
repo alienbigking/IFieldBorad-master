@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 
@@ -60,6 +61,12 @@ public class SetupFragment extends Fragment {
 
 			@Override
 			public void onClick(View view) {
+				try{//activity关闭虚拟键盘
+					InputMethodManager inputMethodManager = (InputMethodManager)
+							getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+					if(inputMethodManager.isActive())//键盘是打开的状态
+						inputMethodManager.hideSoftInputFromWindow(getActivity().getCurrentFocus().getWindowToken(),InputMethodManager.HIDE_NOT_ALWAYS);
+				}catch(Exception e){}
 				String bIP = mBroadcastServer.getText().toString().equals("") ?
 						StartupActivity.DEFAULT_BROADCAST_SERVER : mBroadcastServer.getText().toString();
 				String uIP = mUpdateServer.getText().toString().equals("") ?
