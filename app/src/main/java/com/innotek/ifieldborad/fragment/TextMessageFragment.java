@@ -98,7 +98,13 @@ public class TextMessageFragment extends Fragment {
 		mTitle.setText(current +"," + title +"("+ current +"/" +
 				getArguments().getInt("total")+ ")");
 		mContent.setText(content);
-		mPublisher.setText(getArguments().getString("publisher"));
+		String publisher=getArguments().getString("publisher");
+		if(publisher!=null&&publisher.length()>0) {
+			mPublisher.setVisibility(View.VISIBLE);
+			mPublisher.setText(publisher);
+		}else{
+			mPublisher.setVisibility(View.GONE);
+		}
 		mClock.setText(TextClockForLowLevel.formatedClock());
 		mPicture = (ImageView)v.findViewById(R.id.img_msg);
 		beginBroadcast();
