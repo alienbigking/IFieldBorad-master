@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:layout_marginTop="100dp"
+    >
+
+        <EditText
+            android:id="@+id/edit_broadcast_server"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="text"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:hint="@string/hint_broadcast_server" >
+
+            <requestFocus />
+        </EditText>
+
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp" 
+            android:text="@string/text_setup_hint" />
+   
+        <EditText
+            android:id="@+id/edit_update_server"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"           
+            android:inputType="text"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:hint="@string/hint_update_server" />
+        
+        <EditText 
+            android:id="@+id/edit_state"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:inputType="text"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:hint="@string/hint_state"
+            />
+
+        
+        <EditText 
+            android:id="@+id/edit_orgid"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:inputType="number"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:hint="@string/hint_orgid"
+            />
+        
+        <Button
+            android:id="@+id/button_setup_ok"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="OK"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:layout_gravity="right" />
+   
+</LinearLayout>

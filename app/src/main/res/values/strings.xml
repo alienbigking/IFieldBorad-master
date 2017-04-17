@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">语音播报</string>
+    <string name="action_settings">Settings</string>
+    <string name="text_msg">This is a text message for TextView</string>
+    <string name="dialog_startup">System Startup</string>
+    <string name="sys_title">长沙监狱狱务公开信息发布平台</string>
+    
+    <string name="orgid_summary">Org Id</string>
+    <string name="auto_update">自动更新</string>
+    <string name="update_freq">更新频率</string>
+   	<string name="text_setup_hint">使用非默认更新服务器</string>
+    
+    <string name="hint_broadcast_server">填写广播服务器地址</string>
+	<string name="hint_update_server">填写更新服务器地址</string>
+	<string name="hint_state">填写地区</string>
+	<string name="hint_orgid">机构代码</string>
+</resources>
