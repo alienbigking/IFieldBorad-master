@@ -14,11 +14,13 @@ import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
+import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.widget.ImageView;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -54,6 +56,7 @@ public class TextMessageFragment extends Fragment {
 	private int mCounter = 0;
 	private int mPlayTimes = 0;
 	private String[] mFiles;
+	private TextView tvMeasureText;
 	private Timer timer = new Timer();
 
 	final Runnable runnable = new Runnable(){
@@ -80,14 +83,14 @@ public class TextMessageFragment extends Fragment {
 		mSystemTitle = (TextView)v.findViewById(R.id.sys_title);
 		mSystemTitle.setText(spf.getString("state", DEFAULT_STATE) +
 				getActivity().getResources().getText(R.string.sys_title));
-
 		mTitle = (TextView)v.findViewById(R.id.text_title);
 		mTitle.setGravity(Gravity.CENTER);
-
+		tvMeasureText= (TextView) v.findViewById(R.id.measure_text_msg);
 		mContent = (TextView)v.findViewById(R.id.text_msg);
 		mPublisher = (TextView)v.findViewById(R.id.publisher);
 		mClock = (TextView)v.findViewById(R.id.sys_time);
-
+		//TextView 滑动设置
+		mContent.setMovementMethod(ScrollingMovementMethod.getInstance());
 
 		String title = getArguments().getString("title");
 		String content = getArguments().getString("content");
@@ -98,6 +101,7 @@ public class TextMessageFragment extends Fragment {
 		mTitle.setText(current +"," + title +"("+ current +"/" +
 				getArguments().getInt("total")+ ")");
 		mContent.setText(content);
+		tvMeasureText.setText(content);
 		String publisher=getArguments().getString("publisher");
 		if(publisher!=null&&publisher.length()>0) {
 			mPublisher.setVisibility(View.VISIBLE);
@@ -120,6 +124,7 @@ public class TextMessageFragment extends Fragment {
 	private void beginBroadcast(){
 		mCounter++;
 		mSpeechUtil = new SpeechUtil(getActivity(), mContent.getText().toString());
+		mSpeechUtil.setSpeechTextProgerss(mSpeechTextProgerss);
 		mSpeechUtil.setBroadcastComplete(new SpeechUtil.BroadcastCompleteListener() {
 			@Override
 			public void onBroadcastComplete(int status) {
@@ -134,6 +139,13 @@ public class TextMessageFragment extends Fragment {
 		});
 		mSpeechUtil.startTts();
 	}
+	private SpeechUtil.SpeechTextProgerss mSpeechTextProgerss=new SpeechUtil.SpeechTextProgerss() {
+		@Override
+		public void onSpeakProgress(int progress) {
+			int y=tvMeasureText.getMeasuredHeight()*progress/100;
+			mContent.setScrollY(y);
+		}
+	};
 
 	@Override
 	public void onResume() {
@@ -185,7 +197,7 @@ public class TextMessageFragment extends Fragment {
 			BitmapFactory.Options newOpts = new BitmapFactory.Options();
 			//开始读入图片，此时把options.inJustDecodeBounds 设回true了
 			newOpts.inJustDecodeBounds = true;
-			 bitmap = BitmapFactory.decodeFile(srcPath,newOpts);//此时返回bm为空
+			bitmap = BitmapFactory.decodeFile(srcPath,newOpts);//此时返回bm为空
 			newOpts.inJustDecodeBounds = false;
 			int w = newOpts.outWidth;
 			int h = newOpts.outHeight;
