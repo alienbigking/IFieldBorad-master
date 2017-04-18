@@ -9,6 +9,7 @@ import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
+import android.view.KeyEvent;
 
 import com.innotek.ifieldborad.R;
 import com.innotek.ifieldborad.database.Message;
@@ -120,6 +121,19 @@ public class MessageControllerActivity extends BaseActivity {
         super.onDestroy();
         unregisterReceiver(nextMessageReceiver);
     }
+
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		if (keyCode == KeyEvent.KEYCODE_BACK) {//点击返回键，返回到主页
+			Intent intent = new Intent();
+			intent.setAction(Intent.ACTION_MAIN);
+			intent.addCategory(Intent.CATEGORY_HOME);
+			startActivity(intent);
+
+		}
+		return false;
+	}
+
 }
 
 

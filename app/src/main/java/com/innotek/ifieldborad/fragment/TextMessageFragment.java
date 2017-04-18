@@ -142,8 +142,12 @@ public class TextMessageFragment extends Fragment {
 	private SpeechUtil.SpeechTextProgerss mSpeechTextProgerss=new SpeechUtil.SpeechTextProgerss() {
 		@Override
 		public void onSpeakProgress(int progress) {
-			int y=tvMeasureText.getMeasuredHeight()*progress/100;
-			mContent.setScrollY(y);
+			if(tvMeasureText.getMeasuredHeight()>mContent.getMeasuredHeight()) {
+				if(progress>2) {
+					int y = (tvMeasureText.getMeasuredHeight() - 4 * mContent.getMeasuredHeight() / 5) * progress / 100;
+					mContent.setScrollY(y);
+				}
+			}
 		}
 	};
 
