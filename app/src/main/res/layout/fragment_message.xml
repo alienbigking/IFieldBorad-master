@@ -107,6 +107,8 @@
 				android:layout_height="wrap_content"
 				android:layout_gravity="right"
 				android:gravity="right"
+				android:visibility="gone"
+				android:layout_marginBottom="5dip"
 				android:layout_marginTop="0dp"
 				android:textAppearance="?android:attr/textAppearanceMedium"
 				android:textColor="#FFFFFF"
@@ -114,7 +116,6 @@
 			<ImageView
 				android:id="@+id/img_msg"
 				android:layout_width="match_parent"
-				android:layout_marginTop="5dip"
 				android:layout_height="match_parent"
 				android:scaleType="centerInside"
 				/>
