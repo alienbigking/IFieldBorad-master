@@ -122,17 +122,17 @@ public class MessageControllerActivity extends BaseActivity {
         unregisterReceiver(nextMessageReceiver);
     }
 
-	@Override
-	public boolean onKeyDown(int keyCode, KeyEvent event) {
-		if (keyCode == KeyEvent.KEYCODE_BACK) {//点击返回键，返回到主页
-			Intent intent = new Intent();
-			intent.setAction(Intent.ACTION_MAIN);
-			intent.addCategory(Intent.CATEGORY_HOME);
-			startActivity(intent);
-
-		}
-		return false;
-	}
+//	@Override
+//	public boolean onKeyDown(int keyCode, KeyEvent event) {
+//		if (keyCode == KeyEvent.KEYCODE_BACK) {//点击返回键，返回到主页
+//			Intent intent = new Intent();
+//			intent.setAction(Intent.ACTION_MAIN);
+//			intent.addCategory(Intent.CATEGORY_HOME);
+//			startActivity(intent);
+//
+//		}
+//		return false;
+//	}
 
 }
 

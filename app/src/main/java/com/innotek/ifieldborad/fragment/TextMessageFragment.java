@@ -55,10 +55,11 @@ public class TextMessageFragment extends Fragment {
 	private SpeechUtil mSpeechUtil;
 	private int mImageLooper = 0;
 	private int mCounter = 0;
-	private int mPlayTimes = 0;
 	private String[] mFiles;
 	private Timer timer = new Timer();
-
+	private int mPlayTimes;
+	private boolean isMeasured=false;//是否可以测量TextView高度，用来只执行一次
+	//	private SplitScreenEntity mSplitScreenParams=new SplitScreenEntity();
 	final Runnable runnable = new Runnable(){
 		public void run(){
 			changeImageView(mFiles);
@@ -93,8 +94,8 @@ public class TextMessageFragment extends Fragment {
 
 		String title = getArguments().getString("title");
 		String content = getArguments().getString("content");
-		mPlayTimes = getArguments().getInt("playTimes");
-		//mPlayTimes = 1;
+		mPlayTimes= getArguments().getInt("playTimes");
+		// = 1;
 		mFiles = getArguments().getString("picture").split("#");
 		int current = getArguments().getInt("current");
 		mTitle.setText(current +"," + title +"("+ current +"/" +
@@ -103,10 +104,14 @@ public class TextMessageFragment extends Fragment {
 //		mContent.getViewTreeObserver().addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
 //			@Override
 //			public boolean onPreDraw() {
-//				float height=mContent.getLineCount()*mContent.getLineHeight();
-//				if(0.01*height>mContent.getMeasuredHeight()) {//progress最小是1，内容的1%大于一屏
-//
-//				}else{
+//				if(!isMeasured) {//只执行一次
+//					isMeasured=true;
+//					//判断是否需要分屏播放
+//					float height = mContent.getLineCount() * mContent.getLineHeight();
+//					int maxHeight=100*mContent.getMeasuredHeight();
+//					if (height > maxHeight) {//progress最小是1，内容的1%大于一屏
+//						mSplitScreenParams.setTotal((int) height/maxHeight+(height%maxHeight==0?0:1));
+//					}
 //					beginBroadcast();
 //				}
 //				return true;
@@ -132,19 +137,35 @@ public class TextMessageFragment extends Fragment {
 
 	//开始播报文本信息
 	private void beginBroadcast(){
+		String allContent= mContent.getText().toString();
+//		if(mSplitScreenParams.getTotal()>1){//多屏
+//			if(mSplitScreenParams.getCurrentIndex()==1)mCounter++;//播放第一屏的时候加次数
+//			//substring[start,end)
+//			if(mSplitScreenParams.getCurrentIndex()==mSplitScreenParams.getTotal()){//最后一屏
+//				mSplitScreenParams.setEnd(allContent.length());
+//			}else {
+//				mSplitScreenParams.setEnd(mSplitScreenParams.getStart() + allContent.length() / mSplitScreenParams.getTotal());
+//			}
+//			allContent=allContent.substring(mSplitScreenParams.getStart(),mSplitScreenParams.getEnd());
+//			mSplitScreenParams.setStart(mSplitScreenParams.getEnd());
+//		}else{
 		mCounter++;
-		mSpeechUtil = new SpeechUtil(getActivity(), mContent.getText().toString());
+//		}
+		mSpeechUtil = new SpeechUtil(getActivity(),allContent);
 		mSpeechUtil.setBroadcastComplete(mSpeechTextProgerss);
 		mSpeechUtil.startTts();
+//		mSplitScreenParams.setCurrentIndex(mSplitScreenParams.getCurrentIndex()+1);
 	}
 	private SpeechUtil.BroadcastCompleteListener mSpeechTextProgerss=new SpeechUtil.BroadcastCompleteListener() {
 		@Override
 		public void onBroadcastComplete(int status) {
 			mSpeechUtil.stopTts();
+//			if(mCounter < mPlayTimes||mSplitScreenParams.getCurrentIndex()<mSplitScreenParams.getTotal())
 			if(mCounter < mPlayTimes)
 				beginBroadcast();
 			else{
 				mCounter = 0;
+//				mSplitScreenParams.setCurrentIndex(1);
 				BroadcastUtil.sendNextBroadcast(getActivity());
 			}
 		}
@@ -152,12 +173,20 @@ public class TextMessageFragment extends Fragment {
 		@Override
 		public void onSpeakProgress(int progress) {
 			float height=mContent.getLineCount()*mContent.getLineHeight();
-			if(height>mContent.getMeasuredHeight()) {//内容高度大于一屏才滚动
-				int y= (int) (height* progress / 100);
-				//2*mContent.getLineHeight()滚动慢2行，一般来说一屏不至于才2行，比较合适,y必须大于0
-				y=y-2*mContent.getLineHeight()>0?y-2*mContent.getLineHeight():y;
-				mContent.setScrollY(y);
+			if (height > mContent.getMeasuredHeight()) {//内容高度大于一屏才滚动
+//				if(mSplitScreenParams.getTotal()>1){//多段
+//					mSplitScreenParams.getCurrentIndex();
+//					int y = (int) (height*(100*(mSplitScreenParams.getCurrentIndex()-1)+progress))/(100*mSplitScreenParams.getTotal());
+//					//2*mContent.getLineHeight()滚动慢2行，一般来说一屏不至于才2行，比较合适,y必须大于0
+//					y = y - 2 * mContent.getLineHeight() > 0 ? y - 2 * mContent.getLineHeight() : y;
+//					mContent.setScrollY(y);
+//				}else {//一段
+				int y = (int) (height * progress / 100);
+				//2*mContent.getLineHeight()滚动慢2行，一般来说一屏不至于才2行，比较合适,y必须大于2行
+				y = y - 2 * mContent.getLineHeight() ;
+				if(y>0)mContent.setScrollY(y);
 
+//				}
 			}
 		}
 	};
@@ -287,16 +316,6 @@ public class TextMessageFragment extends Fragment {
 		return fragment;
 	}
 
-	/**
-	 * Dip to px
-	 * @param context
-	 * @param dp
-	 * @return
-	 */
-	private static int dip2px(Context context, int dp){
-		final float scale = context.getResources().getDisplayMetrics().density;
-		return (int)(dp*scale + .5f);
-	}
 
 	@Override
 	public void onDestroy(){
