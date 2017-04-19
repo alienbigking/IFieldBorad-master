@@ -19,13 +19,8 @@ public class SpeechUtil {
 	private static final String APK_NAME = "SpeechService.mp3";
 	private SpeechSynthesizer mTts;
 	private String mTextForRead;
-	private SpeechTextProgerss mSpeechTextProgerss;
 	private BroadcastCompleteListener mBroadcastCompleteListener;
 
-	public void setSpeechTextProgerss(SpeechTextProgerss mSpeechTextProgerss) {
-		if (mSpeechTextProgerss != null && !mSpeechTextProgerss.equals("null"))
-			this.mSpeechTextProgerss = mSpeechTextProgerss;
-	}
 
 	/**
 	 * Constructor for SpeechUtil
@@ -52,6 +47,7 @@ public class SpeechUtil {
 	//Listen for speech complete, status == 200 
 	public interface BroadcastCompleteListener{
 		void onBroadcastComplete(int status);
+		void onSpeakProgress(int progress);
 	}
 
 	public void setBroadcastComplete(BroadcastCompleteListener bc){
@@ -89,7 +85,7 @@ public class SpeechUtil {
 		//Speech complete
 		@Override
 		public void onCompleted(int code) throws RemoteException {
-			mBroadcastCompleteListener.onBroadcastComplete(200);
+			if(mBroadcastCompleteListener!=null)mBroadcastCompleteListener.onBroadcastComplete(200);
 		}
 
 		@Override
@@ -102,14 +98,11 @@ public class SpeechUtil {
 
 		@Override
 		public void onSpeakProgress(int progress) throws RemoteException {
-			if(mSpeechTextProgerss!=null)mSpeechTextProgerss.onSpeakProgress(progress);
+			if(mBroadcastCompleteListener!=null)mBroadcastCompleteListener.onSpeakProgress(progress);
 		}
 
 		@Override
 		public void onSpeakResumed() throws RemoteException {
 		}
 	};
-	public interface SpeechTextProgerss{
-		public void onSpeakProgress(int progress);
-	}
 }

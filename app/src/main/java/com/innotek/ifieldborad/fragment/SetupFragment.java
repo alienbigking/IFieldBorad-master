@@ -52,7 +52,7 @@ public class SetupFragment extends Fragment {
 		View v = inflater.inflate(R.layout.fragment_setup, null);
 
 		mBroadcastServer = (EditText)v.findViewById(R.id.edit_broadcast_server);
-//		mBroadcastServer.setText("http://192.168.1.148:9090");
+		mBroadcastServer.setText("http://192.168.1.148:9090");
 		mUpdateServer = (EditText)v.findViewById(R.id.edit_update_server);
 		mState = (EditText)v.findViewById(R.id.edit_state);
 		mOrgId = (EditText)v.findViewById(R.id.edit_orgid);

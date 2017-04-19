@@ -10,6 +10,7 @@ import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
+import android.graphics.Paint;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.os.Handler;
@@ -56,7 +57,6 @@ public class TextMessageFragment extends Fragment {
 	private int mCounter = 0;
 	private int mPlayTimes = 0;
 	private String[] mFiles;
-	private TextView tvMeasureText;
 	private Timer timer = new Timer();
 
 	final Runnable runnable = new Runnable(){
@@ -85,7 +85,6 @@ public class TextMessageFragment extends Fragment {
 				getActivity().getResources().getText(R.string.sys_title));
 		mTitle = (TextView)v.findViewById(R.id.text_title);
 		mTitle.setGravity(Gravity.CENTER);
-		tvMeasureText= (TextView) v.findViewById(R.id.measure_text_msg);
 		mContent = (TextView)v.findViewById(R.id.text_msg);
 		mPublisher = (TextView)v.findViewById(R.id.publisher);
 		mClock = (TextView)v.findViewById(R.id.sys_time);
@@ -101,7 +100,18 @@ public class TextMessageFragment extends Fragment {
 		mTitle.setText(current +"," + title +"("+ current +"/" +
 				getArguments().getInt("total")+ ")");
 		mContent.setText(content);
-		tvMeasureText.setText(content);
+//		mContent.getViewTreeObserver().addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
+//			@Override
+//			public boolean onPreDraw() {
+//				float height=mContent.getLineCount()*mContent.getLineHeight();
+//				if(0.01*height>mContent.getMeasuredHeight()) {//progress最小是1，内容的1%大于一屏
+//
+//				}else{
+//					beginBroadcast();
+//				}
+//				return true;
+//			}
+//		});
 		String publisher=getArguments().getString("publisher");
 		if(publisher!=null&&publisher.length()>0) {
 			mPublisher.setVisibility(View.VISIBLE);
@@ -124,29 +134,30 @@ public class TextMessageFragment extends Fragment {
 	private void beginBroadcast(){
 		mCounter++;
 		mSpeechUtil = new SpeechUtil(getActivity(), mContent.getText().toString());
-		mSpeechUtil.setSpeechTextProgerss(mSpeechTextProgerss);
-		mSpeechUtil.setBroadcastComplete(new SpeechUtil.BroadcastCompleteListener() {
-			@Override
-			public void onBroadcastComplete(int status) {
-				mSpeechUtil.stopTts();
-				if(mCounter < mPlayTimes)
-					beginBroadcast();
-				else{
-					mCounter = 0;
-					BroadcastUtil.sendNextBroadcast(getActivity());
-				}
-			}
-		});
+		mSpeechUtil.setBroadcastComplete(mSpeechTextProgerss);
 		mSpeechUtil.startTts();
 	}
-	private SpeechUtil.SpeechTextProgerss mSpeechTextProgerss=new SpeechUtil.SpeechTextProgerss() {
+	private SpeechUtil.BroadcastCompleteListener mSpeechTextProgerss=new SpeechUtil.BroadcastCompleteListener() {
+		@Override
+		public void onBroadcastComplete(int status) {
+			mSpeechUtil.stopTts();
+			if(mCounter < mPlayTimes)
+				beginBroadcast();
+			else{
+				mCounter = 0;
+				BroadcastUtil.sendNextBroadcast(getActivity());
+			}
+		}
+
 		@Override
 		public void onSpeakProgress(int progress) {
-			if(tvMeasureText.getMeasuredHeight()>mContent.getMeasuredHeight()) {
-				if(progress>2) {
-					int y = (tvMeasureText.getMeasuredHeight() - 4 * mContent.getMeasuredHeight() / 5) * progress / 100;
-					mContent.setScrollY(y);
-				}
+			float height=mContent.getLineCount()*mContent.getLineHeight();
+			if(height>mContent.getMeasuredHeight()) {//内容高度大于一屏才滚动
+				int y= (int) (height* progress / 100);
+				//2*mContent.getLineHeight()滚动慢2行，一般来说一屏不至于才2行，比较合适,y必须大于0
+				y=y-2*mContent.getLineHeight()>0?y-2*mContent.getLineHeight():y;
+				mContent.setScrollY(y);
+
 			}
 		}
 	};
@@ -158,8 +169,6 @@ public class TextMessageFragment extends Fragment {
 
 	private Handler handler = new Handler();
 
-
-
 	private void changeImageView(String[] files){
 		String filename;
 		if(mImageLooper < files.length){
@@ -170,19 +179,14 @@ public class TextMessageFragment extends Fragment {
 			filename = files[mImageLooper];
 
 		}
-//		BitmapDrawable drawable = (BitmapDrawable)mPicture.getDrawable();
-//		if(drawable!=null && drawable.getBitmap() != null){
-//			drawable.getBitmap().recycle();
-//			mPicture.setImageDrawable(null);
-//		}
+		BitmapDrawable drawable = (BitmapDrawable)mPicture.getDrawable();
+		if(drawable!=null && drawable.getBitmap() != null){
+			drawable.getBitmap().recycle();
+			mPicture.setImageDrawable(null);
+		}
 		try{
-
 			File dir = getActivity().getFilesDir();
-			String fileName=dir.getAbsolutePath()+"/"+filename;
 			mPicture.setImageBitmap(compressImage(dir.getAbsolutePath()+"/"+filename));
-//			Bitmap bitmap = BitmapFactory.decodeFile(fileName);
-//			mPicture.setImageBitmap(bitmap);
-//			mPicture.setImageResource(R.drawable.ic_launcher);
 		}catch(Exception e){
 			e.printStackTrace();
 		}
