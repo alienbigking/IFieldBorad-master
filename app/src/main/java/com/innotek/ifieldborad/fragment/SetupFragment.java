@@ -24,12 +24,16 @@ public class SetupFragment extends Fragment {
 	private EditText mState;
 	private EditText mOrgId;
 	private Button mButton;
+	private SharedPreferences preferences;
 
 	//private static final String TAG = "SETUP_SERVER";
 
 	@Override
 	public void onCreate(Bundle savedInstanceState){
 		super.onCreate(savedInstanceState);
+		preferences = getActivity().getSharedPreferences(
+				StartupActivity.PREFS_SERVER, Context.MODE_PRIVATE);
+
 	}
 
 	/**
@@ -53,6 +57,10 @@ public class SetupFragment extends Fragment {
 
 		mBroadcastServer = (EditText)v.findViewById(R.id.edit_broadcast_server);
 //		mBroadcastServer.setText("http://192.168.1.148:9090");
+		String broadcastServer=preferences.getString("broadcastServer","");
+		if(broadcastServer!=null&&broadcastServer.length()>0){
+			mBroadcastServer.setText(broadcastServer);
+		}
 		mUpdateServer = (EditText)v.findViewById(R.id.edit_update_server);
 		mState = (EditText)v.findViewById(R.id.edit_state);
 		mOrgId = (EditText)v.findViewById(R.id.edit_orgid);
@@ -73,12 +81,10 @@ public class SetupFragment extends Fragment {
 						StartupActivity.DEFAULT_UPDATE_SERVER : mUpdateServer.getText().toString() ;
 				String state = mState.getText().toString().equals("") ?
 						"湖南省" : mState.getText().toString();
-				SharedPreferences settings = getActivity().getSharedPreferences(
-						StartupActivity.PREFS_SERVER, Context.MODE_PRIVATE);
-				settings.edit().putString("updateServer", uIP).commit();
-				settings.edit().putString("broadcastServer", bIP).commit();
-				settings.edit().putString("state", state).commit();
-				settings.edit().putInt("orgId", Integer.parseInt(TextUtils.isEmpty(mOrgId.getText().toString()) ? "410000" : mOrgId.getText().toString())).commit();
+				preferences.edit().putString("updateServer", uIP).commit();
+				preferences.edit().putString("broadcastServer", bIP).commit();
+				preferences.edit().putString("state", state).commit();
+				preferences.edit().putInt("orgId", Integer.parseInt(TextUtils.isEmpty(mOrgId.getText().toString()) ? "410000" : mOrgId.getText().toString())).commit();
 				onSetFinishedListener.onFinished();
 				Log.i("-----", "set finished");
 			}

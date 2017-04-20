@@ -125,16 +125,12 @@ ADDED from /Users/Raleigh.Luo/Downloads/Borad-master/IFieldBorad-master/app/src/
 		ADDED from /Users/Raleigh.Luo/Downloads/Borad-master/IFieldBorad-master/app/src/main/AndroidManifest.xml:54:14-76
 	android:name
 		ADDED from /Users/Raleigh.Luo/Downloads/Borad-master/IFieldBorad-master/app/src/main/AndroidManifest.xml:51:19-75
-intent-filter#android.intent.action.BOOT_COMPLETED+android.intent.category.DEFAULT
+intent-filter#android.intent.action.BOOT_COMPLETED+android.intent.category.LAUNCHER
 ADDED from /Users/Raleigh.Luo/Downloads/Borad-master/IFieldBorad-master/app/src/main/AndroidManifest.xml:55:13-58:29
 action#android.intent.action.BOOT_COMPLETED
 ADDED from /Users/Raleigh.Luo/Downloads/Borad-master/IFieldBorad-master/app/src/main/AndroidManifest.xml:56:17-79
 	android:name
 		ADDED from /Users/Raleigh.Luo/Downloads/Borad-master/IFieldBorad-master/app/src/main/AndroidManifest.xml:56:25-76
-category#android.intent.category.DEFAULT
-ADDED from /Users/Raleigh.Luo/Downloads/Borad-master/IFieldBorad-master/app/src/main/AndroidManifest.xml:57:14-73
-	android:name
-		ADDED from /Users/Raleigh.Luo/Downloads/Borad-master/IFieldBorad-master/app/src/main/AndroidManifest.xml:57:24-70
 receiver#com.innotek.ifieldborad.SilentInstallerReceiver
 ADDED from /Users/Raleigh.Luo/Downloads/Borad-master/IFieldBorad-master/app/src/main/AndroidManifest.xml:62:9-68:20
 	android:enabled

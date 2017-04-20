@@ -34,11 +34,18 @@ public class StartupFragment extends Fragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
 		View v = inflater.inflate(R.layout.fragment_startup, null);
-		Context context = getActivity();
+
+		mDownloadProgress = (TextView) v.findViewById(R.id.downloadProgress);
+		mDownloadProgress.setText("正在读取发布平台");
+		mVersionName = (TextView) v.findViewById(R.id.version_name);
+		return v;
+	}
+
+	@Override
+	public void onResume() {
+		super.onResume();
 		try {
-			mDownloadProgress = (TextView) v.findViewById(R.id.downloadProgress);
-			mDownloadProgress.setText("正在读取发布平台");
-			mVersionName = (TextView) v.findViewById(R.id.version_name);
+			Context context = getActivity();
 			mText = "正在连接服务器...";
 			String versionName = "当前版本1.0.0";
 			try {
@@ -65,10 +72,7 @@ public class StartupFragment extends Fragment {
 			Intent netIntent = new Intent(getActivity(), MessageService.class);
 			context.startService(netIntent);
 			changeProgress();
-		}catch (Exception e){
-
-		}
-		return v;
+		}catch (Exception e){}
 	}
 
 	private BroadcastReceiver soapExceptionReceiver = new BroadcastReceiver(){
@@ -95,7 +99,7 @@ public class StartupFragment extends Fragment {
 	/**
 	 * 修改文字
 	 * @param text
-     */
+	 */
 	private void changeTextView(String text){
 		mDownloadProgress.setText(text);
 	}

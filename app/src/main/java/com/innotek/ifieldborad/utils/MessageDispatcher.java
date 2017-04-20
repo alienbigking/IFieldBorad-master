@@ -43,6 +43,8 @@ public class MessageDispatcher {
 					p.setPicWaitSeconds(c.getInt(6));
 					p.setPlayTimes(c.getInt(7));
 					p.setInfoType(c.getInt(1));
+					p.setPublisher(c.getString(9));
+					p.setPublishTime(c.getString(10));
 					messages.add(p);
 				}else{
 					Video v = new Video(context);

@@ -145,7 +145,7 @@ public class DBAdapter {
 
 		return sqliteDB.query(TABLE_NAME,
 				new String[]{"info_id", "info_type", "title", "content", "picture",
-						"read_text", "pic_wait_seconds", "play_times", "video"},
+						"read_text", "pic_wait_seconds", "play_times", "video","publisher","publish_time"},
 				"is_ready = " + 1,
 				null, null, null, null);
 	}

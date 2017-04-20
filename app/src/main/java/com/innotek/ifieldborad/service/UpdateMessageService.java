@@ -10,6 +10,7 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.innotek.ifieldborad.database.DBAdapter;
+import com.innotek.ifieldborad.utils.BroadcastUtil;
 import com.innotek.ifieldborad.utils.ServiceConnectionUtil;
 import com.innotek.ifieldborad.utils.SoapUtil;
 
@@ -25,42 +26,18 @@ public class UpdateMessageService extends IntentService {
 	@Override
 	protected void onHandleIntent(Intent intent) {	
 		DBAdapter adapter = new DBAdapter(this);
-		
 		try{
 			if(!ServiceConnectionUtil.isOnline(this)){
-				
-				Toast.makeText(this, "Please turn on your network device",
+				Toast.makeText(this, "网络异常，请检查网络设置",
 					Toast.LENGTH_SHORT).show();
 			}else{	
-				
 				adapter.saveMessages(this, SoapUtil
-						.getResultsFromSoap(this));				
-				}	
+						.getResultsFromSoap(this));
+				BroadcastUtil.sendUpdateBroadcast(this);//发送广播，更新消息
+				}
 			}catch(Exception e){
-				Toast.makeText(this, "Can not connect to server", Toast.LENGTH_SHORT).show();
 			}
 	}
-	
-	
-	public static void start(Context context){
-		Long updateFrequent =  1L * 1000;		
-		boolean isAutoUpdate = true ;
-		
-		AlarmManager alarmManager  = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
-		Intent updateIntent = new Intent(context, UpdateMessageService.class);
-		PendingIntent pi = PendingIntent.getService(context, 0, updateIntent, 0);
-		
-		if(isAutoUpdate){
-			alarmManager.setRepeating(AlarmManager.ELAPSED_REALTIME,
-					SystemClock.elapsedRealtime() + updateFrequent, 
-					updateFrequent, pi);
-			Log.i(TAG, "Updating in backgroud...");
-		}else{
-			alarmManager.cancel(pi);
-			pi.cancel();
-		}
-		
-		
-	}
+
 
 }

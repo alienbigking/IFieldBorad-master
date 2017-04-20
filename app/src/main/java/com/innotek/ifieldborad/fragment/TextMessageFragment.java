@@ -2,6 +2,10 @@ package com.innotek.ifieldborad.fragment;
 
 
 import java.io.File;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -117,14 +121,17 @@ public class TextMessageFragment extends Fragment {
 //				return true;
 //			}
 //		});
-		String publisher=getArguments().getString("publisher");
-		if(publisher!=null&&publisher.length()>0) {
-			mPublisher.setVisibility(View.VISIBLE);
-			mPublisher.setText(publisher);
-		}else{
-			mPublisher.setVisibility(View.GONE);
-		}
-		mClock.setText(TextClockForLowLevel.formatedClock());
+//		String publisher=getArguments().getString("publisher");
+//		if(publisher!=null&&publisher.length()>0) {
+//			mPublisher.setVisibility(View.VISIBLE);
+//			mPublisher.setText(publisher);
+//		}else{
+//			mPublisher.setVisibility(View.GONE);
+//		}
+		mPublisher.setVisibility(View.GONE);
+		String publishTime=getArguments().getString("publishTime");
+		if(publishTime!=null&&publishTime.length()>19)publishTime=publishTime.substring(0,19);
+		mClock.setText(publishTime==null?"":publishTime);
 		mPicture = (ImageView)v.findViewById(R.id.img_msg);
 		beginBroadcast();
 		loopImages();
