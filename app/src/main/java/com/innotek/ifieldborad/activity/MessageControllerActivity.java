@@ -38,7 +38,7 @@ public class MessageControllerActivity extends BaseActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.container);
 		mCurrentIndex = 0;
-		mPlayList = MessageDispatcher.getPlayList(this);
+		mPlayList=MessageDispatcher.getPlayList(this);
 		initFragment(createFragmentWithBundle());
 		setFilter();
 	}
@@ -61,7 +61,8 @@ public class MessageControllerActivity extends BaseActivity {
 		if(mPlayList.get(mCurrentIndex).getInfoType() == 1){
 			Publicity p = (Publicity)mPlayList.get(mCurrentIndex);
 			args.putString("title", p.getTitle());
-			args.putString("content", p.getContent());
+			String content=p.getContent();
+			args.putString("content",deleteCRLFOnce(content));
 			args.putString("publisher", p.getPublisher());
 			args.putString("publishTime", p.getPublishTime());
 			args.putString("picture", p.getPicture());
@@ -79,7 +80,14 @@ public class MessageControllerActivity extends BaseActivity {
 		}
 		return fragment;
 	}
-
+	//去掉空行，已减少错位
+	private  String deleteCRLFOnce(String input) {
+		if (input!=null&&input.length()>0) {
+			return input.replaceAll("((\r\n)|\n)[\\s\t ]*(\\1)+", "$1").replaceAll("^((\r\n)|\n)", "");
+		} else {
+			return input;
+		}
+	}
 	/**
 	 * Receive broadcast from TextMessageFragment or VideoMessageFragment when these messages
 	 * was broadcast finished.
@@ -161,8 +169,6 @@ public class MessageControllerActivity extends BaseActivity {
 			startService(netIntent);
 		}
 	};
-
-
 }
 
 

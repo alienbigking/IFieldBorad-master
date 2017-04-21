@@ -116,10 +116,12 @@ public class StartupFragment extends Fragment {
 
 	@Override
 	public void onDestroy(){
-		handler.removeCallbacks(runnable);
-		timer.cancel();
-		timer = null;
-		getActivity().unregisterReceiver(soapExceptionReceiver);
+		try {
+			handler.removeCallbacks(runnable);
+			timer.cancel();
+			timer = null;
+			getActivity().unregisterReceiver(soapExceptionReceiver);
+		}catch (Exception e){}
 		super.onDestroy();
 	}
 }

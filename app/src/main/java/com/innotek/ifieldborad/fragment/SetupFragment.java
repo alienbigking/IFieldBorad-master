@@ -56,7 +56,7 @@ public class SetupFragment extends Fragment {
 		View v = inflater.inflate(R.layout.fragment_setup, null);
 
 		mBroadcastServer = (EditText)v.findViewById(R.id.edit_broadcast_server);
-//		mBroadcastServer.setText("http://192.168.1.148:9090");
+		mBroadcastServer.setText("http://192.168.1.148:9090");
 		String broadcastServer=preferences.getString("broadcastServer","");
 		if(broadcastServer!=null&&broadcastServer.length()>0){
 			mBroadcastServer.setText(broadcastServer);
