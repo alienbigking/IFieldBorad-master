@@ -193,13 +193,13 @@ public class TextMessageFragment extends Fragment {
 					int y = (int) (height*(100*(mSplitScreenParams.getCurrentIndex()-1)+progress))/(100*mSplitScreenParams.getTotal());
 					//滚动慢每页倒数1行，,y必须大于0
                     int perPageLine= mContent.getMeasuredHeight()/mContent.getLineHeight();//一页显示多少行
-					y = y - perPageLine* mContent.getLineHeight();
+					y = y - perPageLine* mContent.getLineHeight()/2;
 					if(y>0)mContent.setScrollY(y);
 				}else {//一段
 					int y = (int) (height * progress / 100);
 					//滚动慢每页倒数1行，,y必须大于0
 					int perPageLine= mContent.getMeasuredHeight()/mContent.getLineHeight();//一页显示多少行
-					y = y - (perPageLine-1)* mContent.getLineHeight(); ;
+					y = y - perPageLine* mContent.getLineHeight()/2;
 					if(y>0)mContent.setScrollY(y);
 				}
 			}
