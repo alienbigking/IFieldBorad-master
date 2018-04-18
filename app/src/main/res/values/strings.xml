@@ -12,7 +12,7 @@
     <string name="update_freq">更新频率</string>
    	<string name="text_setup_hint">使用非默认更新服务器</string>
     
-    <string name="hint_broadcast_server">填写广播服务器地址</string>
+    <string name="hint_broadcast_server">填写广播服务器地址,如 http://192.168.0.116:7070</string>
 	<string name="hint_update_server">填写更新服务器地址</string>
 	<string name="hint_state">填写地区</string>
 	<string name="hint_orgid">机构代码</string>
