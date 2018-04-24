@@ -31,7 +31,7 @@ public class MessageControllerActivity extends BaseActivity {
 
 	private int mCurrentIndex;
 	private ArrayList<Message> mPlayList;
-	private final long DOWN_TIME=10*1000;//倒计时 1小时
+	private final long DOWN_TIME=10*60*1000;//倒计时 10分钟
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
