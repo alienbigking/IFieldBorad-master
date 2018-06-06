@@ -2,29 +2,39 @@ package com.innotek.ifieldborad.fragment;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
+import android.widget.Toast;
 
+import com.innotek.ifieldborad.Constants;
 import com.innotek.ifieldborad.R;
+import com.innotek.ifieldborad.activity.MessageControllerActivity;
 import com.innotek.ifieldborad.activity.StartupActivity;
+import com.innotek.ifieldborad.activity.WebViewActivity;
+import com.innotek.ifieldborad.service.UpdateMessageService;
 
 public class SetupFragment extends Fragment {
 
 	private EditText mBroadcastServer;
-	private EditText mUpdateServer;
-	private EditText mState;
-	private EditText mOrgId;
+	private EditText etPlatformName;
+	private EditText etManagerTitle;
+	private EditText etPrisonName;
 	private Button mButton;
 	private SharedPreferences preferences;
+	private Spinner spinner;
+	private int time=Constants.REQUEST_TIME_DEFAULT;
 
 	//private static final String TAG = "SETUP_SERVER";
 
@@ -32,7 +42,7 @@ public class SetupFragment extends Fragment {
 	public void onCreate(Bundle savedInstanceState){
 		super.onCreate(savedInstanceState);
 		preferences = getActivity().getSharedPreferences(
-				StartupActivity.PREFS_SERVER, Context.MODE_PRIVATE);
+				Constants.PREFS_SERVER_TABLE, Context.MODE_PRIVATE);
 
 	}
 
@@ -54,42 +64,95 @@ public class SetupFragment extends Fragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
 		View v = inflater.inflate(R.layout.fragment_setup, null);
-
+//备份
+		SharedPreferences temple = getActivity().getSharedPreferences(
+				Constants.TEMPLE_TABLE, Context.MODE_PRIVATE);
 		mBroadcastServer = (EditText)v.findViewById(R.id.edit_broadcast_server);
-		mBroadcastServer.setText("http://192.168.1.148:9090");
-		String broadcastServer=preferences.getString("broadcastServer","");
+		String broadcastServer=temple.getString(Constants.BROADCAST_SERVER,Constants.BROADCAST_SERVER_DEFAULT);
 		if(broadcastServer!=null&&broadcastServer.length()>0){
 			mBroadcastServer.setText(broadcastServer);
 		}
-		mUpdateServer = (EditText)v.findViewById(R.id.edit_update_server);
-		mState = (EditText)v.findViewById(R.id.edit_state);
-		mOrgId = (EditText)v.findViewById(R.id.edit_orgid);
+		spinner= (Spinner) v.findViewById(R.id.sp_time);
+
+		initSpinner();
+		etPlatformName = (EditText)v.findViewById(R.id.et_platform_name);
+		etManagerTitle = (EditText)v.findViewById(R.id.et_manager_title);
+		etPrisonName = (EditText)v.findViewById(R.id.et_prison_name);
+		etPlatformName.setText(temple.getString(Constants.PLATFORM_NAME,""));
+		etManagerTitle.setText(temple.getString(Constants.MANAGER_TITLE,""));
+		etPrisonName.setText(temple.getString(Constants.PRISON_NAME,""));
+
 		mButton = (Button)v.findViewById(R.id.button_setup_ok);
 		mButton.setOnClickListener(new View.OnClickListener() {
 
 			@Override
 			public void onClick(View view) {
+				Intent netIntent = new Intent(getActivity(), UpdateMessageService.class);
 				try{//activity关闭虚拟键盘
 					InputMethodManager inputMethodManager = (InputMethodManager)
 							getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
 					if(inputMethodManager.isActive())//键盘是打开的状态
 						inputMethodManager.hideSoftInputFromWindow(getActivity().getCurrentFocus().getWindowToken(),InputMethodManager.HIDE_NOT_ALWAYS);
 				}catch(Exception e){}
-				String bIP = mBroadcastServer.getText().toString().equals("") ?
-						StartupActivity.DEFAULT_BROADCAST_SERVER : mBroadcastServer.getText().toString();
-				String uIP = mUpdateServer.getText().toString().equals("") ?
-						StartupActivity.DEFAULT_UPDATE_SERVER : mUpdateServer.getText().toString() ;
-				String state = mState.getText().toString().equals("") ?
-						"湖南省" : mState.getText().toString();
-				preferences.edit().putString("updateServer", uIP).commit();
-				preferences.edit().putString("broadcastServer", bIP).commit();
-				preferences.edit().putString("state", state).commit();
-				preferences.edit().putInt("orgId", Integer.parseInt(TextUtils.isEmpty(mOrgId.getText().toString()) ? "410000" : mOrgId.getText().toString())).commit();
-				onSetFinishedListener.onFinished();
-				Log.i("-----", "set finished");
+				SharedPreferences.Editor edit=preferences.edit();
+				String bIP = mBroadcastServer.getText().toString().trim();
+				if(bIP.isEmpty()){
+					Toast.makeText(getActivity(),R.string.broad_hint,Toast.LENGTH_LONG).show();
+				}else{
+					String PlatformName = etPlatformName.getText().toString().trim();
+					String ManagerTitle = etManagerTitle.getText().toString().trim();
+					String PrisonName = etPrisonName.getText().toString().trim();
+					if(bIP.length()>0)edit.putString(Constants.BROADCAST_SERVER ,bIP);
+					if(PlatformName.length()>0)edit.putString(Constants.PLATFORM_NAME ,PlatformName);
+					if(ManagerTitle.length()>0)edit.putString(Constants.MANAGER_TITLE ,ManagerTitle);
+					if(PrisonName.length()>0)edit.putString(Constants.PRISON_NAME ,PrisonName);
+					edit.putInt(Constants.REQUEST_TIME ,time);
+					edit.apply();
+					//备份
+					SharedPreferences temple = getActivity().getSharedPreferences(
+							Constants.TEMPLE_TABLE, Context.MODE_PRIVATE);
+					SharedPreferences.Editor templeEdit=temple.edit();
+					if(bIP.length()>0)templeEdit.putString(Constants.BROADCAST_SERVER ,bIP);
+					if(PlatformName.length()>0)templeEdit.putString(Constants.PLATFORM_NAME ,PlatformName);
+					if(ManagerTitle.length()>0)templeEdit.putString(Constants.MANAGER_TITLE ,ManagerTitle);
+					if(PrisonName.length()>0)templeEdit.putString(Constants.PRISON_NAME ,PrisonName);
+					templeEdit.putInt(Constants.REQUEST_TIME ,time);
+					templeEdit.apply();
+
+					onSetFinishedListener.onFinished();
+					Log.i("-----", "set finished");
+				}
+
+			}
+		});
+		v.findViewById(R.id.button_update).setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View view) {
+				startActivity(new Intent(getActivity(), WebViewActivity.class));
 			}
 		});
 		return v;
 	}
+	private void initSpinner(){
+
+		//协议初始化
+		final int[] protocolArray = getResources().getIntArray(R.array.protocol_params);
+		ArrayAdapter protocolAdapter = new ArrayAdapter(getActivity(),
+				R.layout.spinner_item,  getResources().getStringArray(R.array.protocol));
+		spinner.setAdapter( protocolAdapter);
+		spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+			@Override
+			public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
+				time = protocolArray[position];
+			}
+
+			@Override
+			public void onNothingSelected(AdapterView<?> adapterView) {
+
+			}
+		});
+		spinner.setSelection(1);
+	}
+
 
 }

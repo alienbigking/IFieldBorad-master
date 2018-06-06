@@ -18,25 +18,32 @@ import com.innotek.ifieldborad.utils.SoapUtil;
 public class UpdateMessageService extends IntentService {
 
 	private static final String TAG = "UpdateMessageService";
-		
+	private boolean isUpdating=false;
+
 	public UpdateMessageService(){
 		super(TAG);
 	}
-	
+
 	@Override
-	protected void onHandleIntent(Intent intent) {	
-		DBAdapter adapter = new DBAdapter(this);
+	protected void onHandleIntent(Intent intent) {
+
 		try{
 			if(!ServiceConnectionUtil.isOnline(this)){
 				Toast.makeText(this, "网络异常，请检查网络设置",
-					Toast.LENGTH_SHORT).show();
-			}else{	
-				adapter.saveMessages(this, SoapUtil
-						.getResultsFromSoap(this));
-				BroadcastUtil.sendUpdateBroadcast(this);//发送广播，更新消息
+						Toast.LENGTH_SHORT).show();
+			}else{
+				if(!isUpdating){
+					isUpdating=true;
+					DBAdapter adapter = new DBAdapter(this);
+					adapter.saveMessages(this, SoapUtil
+							.getResultsFromSoap(this));
+					BroadcastUtil.sendUpdateBroadcast(this);//发送广播，更新消息
+					isUpdating=false;
 				}
-			}catch(Exception e){
 			}
+		}catch(Exception e){
+			isUpdating=false;
+		}
 	}
 
 

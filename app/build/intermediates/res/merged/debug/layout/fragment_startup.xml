@@ -1,26 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="@drawable/hp_02" >
-    
-	<TextView
-	    android:id="@+id/version_name"
-	    android:layout_width="wrap_content"
-	    android:layout_height="wrap_content"
-	    android:textAppearance="?android:attr/textAppearanceSmall"
-	    android:textColor="#FFFFFF"
-	    android:layout_gravity="left" 
-	     />
-	
-    <TextView
-        android:id="@+id/downloadProgress"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="550dp"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:layout_gravity="center"
-        android:textColor="#FFFFFF" />
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:background="@color/common_bg" >
 
-</LinearLayout>
+
+	<TextView
+		android:id="@+id/version_name"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:textAppearance="?android:attr/textAppearanceSmall"
+		android:textColor="#FFFFFF"
+		android:layout_gravity="left"
+		android:layout_marginLeft="15dip"
+		android:layout_marginTop="15dip"
+		android:text="v1.0.1"
+		/>
+	<LinearLayout
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:orientation="vertical"
+		android:layout_gravity="center"
+		android:background="@color/common_bg" >
+		<View
+			android:layout_width="match_parent"
+			android:layout_height="10dip"
+			android:background="@color/blue_dark_color"
+			/>
+
+		<TextView
+			android:id="@+id/splash_title"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:textColor="@android:color/white"
+
+			android:layout_marginTop="10dip"
+			android:layout_marginBottom="10dip"
+			android:paddingTop="20dip"
+			android:paddingBottom="20dip"
+			android:paddingRight="20dip"
+			android:paddingLeft="20dip"
+			android:textAppearance="?android:attr/textAppearanceLarge"
+			android:gravity="center"
+			android:textStyle="bold"
+			android:background="@color/blue_dark_color"
+			android:text="@string/launcher_title_default"
+			/>
+		<View
+			android:layout_width="match_parent"
+			android:layout_height="10dip"
+			android:background="@color/blue_dark_color"
+			/>
+	</LinearLayout>
+	<TextView
+		android:id="@+id/downloadProgress"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:text="正在读取发布平台"
+		android:textAppearance="?android:attr/textAppearanceMedium"
+		android:layout_gravity="bottom|center_horizontal"
+		android:layout_marginBottom="30dip"
+		android:textColor="#FFFFFF" />
+
+</FrameLayout>

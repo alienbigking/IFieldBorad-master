@@ -6,8 +6,23 @@
 	<ImageView android:layout_width="match_parent"
 		android:layout_height="wrap_content"
 		android:scaleType="fitXY"
-		android:id="@+id/iv_header"
+		android:layout_alignTop="@+id/tv_header"
+		android:layout_alignBottom="@+id/tv_header"
 		android:src="@drawable/broadcast_bg_header"
+		/>
+	<TextView
+		android:id="@+id/tv_header"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:textColor="@android:color/white"
+		android:textStyle="bold"
+		android:paddingTop="15dip"
+		android:paddingBottom="15dip"
+		android:gravity="center_vertical"
+		android:paddingLeft="10dip"
+		android:paddingRight="10dip"
+		android:textAppearance="?android:attr/textAppearanceMedium"
+		android:text="@string/manager_title_defalut"
 		/>
 	<TextView
 		android:id="@+id/sys_title"
@@ -16,7 +31,7 @@
 		android:layout_height="wrap_content"
 		android:layout_marginTop="15dip"
 		android:gravity="center"
-		android:layout_below="@+id/iv_header"
+		android:layout_below="@+id/tv_header"
 		android:layout_marginLeft="30dip"
 		android:layout_marginRight="30dip"
 		android:padding="5dip"

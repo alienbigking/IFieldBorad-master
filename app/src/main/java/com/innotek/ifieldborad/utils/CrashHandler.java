@@ -74,19 +74,19 @@ public class CrashHandler implements UncaughtExceptionHandler {
      */
     @Override
     public void uncaughtException(Thread thread, Throwable ex) {
-        if (!handleException(ex) && mDefaultHandler != null) {
+//        if (!handleException(ex) && mDefaultHandler != null) {
             //如果用户没有处理则让系统默认的异常处理器来处理
             mDefaultHandler.uncaughtException(thread, ex);
-        } else {
-            try {
-                Thread.sleep(3000);
-            } catch (InterruptedException e) {
-                Log.e(TAG, "error : ", e);
-            }
-            //退出程序
-            android.os.Process.killProcess(android.os.Process.myPid());
-            System.exit(1);
-        }
+//        } else {
+//            try {
+//                Thread.sleep(3000);
+//            } catch (InterruptedException e) {
+//                Log.e(TAG, "error : ", e);
+//            }
+//            //退出程序
+//            android.os.Process.killProcess(android.os.Process.myPid());
+//            System.exit(1);
+//        }
     }
 
     /**
@@ -96,28 +96,28 @@ public class CrashHandler implements UncaughtExceptionHandler {
      * @return true:如果处理了该异常信息;否则返回false.
      */
     private boolean handleException(Throwable ex) {
-        if (ex == null) {
-            return false;
-        }
-        ex.printStackTrace();
-        //使用Toast来显示异常信息
-        new Thread() {
-            @Override
-            public void run() {
-                Looper.prepare();
-                Toast.makeText(mContext, "很抱歉,程序出现异常,即将退出.", Toast.LENGTH_LONG).show();
-                Looper.loop();
-            }
-        }.start();
-        //收集设备参数信息
-        collectDeviceInfo(mContext);
-        //保存日志文件
-        String file_name = saveCrashInfo2File(ex);
-        SharedPreferences sp = mContext.getSharedPreferences("config", Context.MODE_PRIVATE);
-        String file_names = sp.getString("错误信息文件名...", "");
-        SharedPreferences.Editor editor = sp.edit();
-        editor.putString("错误信息文件名...", TextUtils.isEmpty(file_name) ? file_name : file_names + "+" + file_name);
-        editor.commit();
+//        if (ex == null) {
+//            return false;
+//        }
+//        ex.printStackTrace();
+//        //使用Toast来显示异常信息
+//        new Thread() {
+//            @Override
+//            public void run() {
+//                Looper.prepare();
+//                Toast.makeText(mContext, "很抱歉,程序出现异常,即将退出.", Toast.LENGTH_LONG).show();
+//                Looper.loop();
+//            }
+//        }.start();
+//        //收集设备参数信息
+//        collectDeviceInfo(mContext);
+//        //保存日志文件
+//        String file_name = saveCrashInfo2File(ex);
+//        SharedPreferences sp = mContext.getSharedPreferences("config", Context.MODE_PRIVATE);
+//        String file_names = sp.getString("错误信息文件名...", "");
+//        SharedPreferences.Editor editor = sp.edit();
+//        editor.putString("错误信息文件名...", TextUtils.isEmpty(file_name) ? file_name : file_names + "+" + file_name);
+//        editor.commit();
         return true;
     }
 

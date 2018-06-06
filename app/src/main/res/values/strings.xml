@@ -6,14 +6,64 @@
     <string name="text_msg">This is a text message for TextView</string>
     <string name="dialog_startup">System Startup</string>
     <string name="sys_title">狱务公开信息发布平台</string>
+    <string name="launcher_title_default">湖南省监狱管理局狱务公开信息发布平台</string>
     
     <string name="orgid_summary">Org Id</string>
     <string name="auto_update">自动更新</string>
     <string name="update_freq">更新频率</string>
-   	<string name="text_setup_hint">使用非默认更新服务器</string>
-    
-    <string name="hint_broadcast_server">填写广播服务器地址,如 http://192.168.0.116:7070</string>
+   	<string name="config">其他配置</string>
+    <string name="platform_name">平台名称\u3000</string>
+    <string name="manager_title">管理局名称</string>
+    <string name="prison_name">监狱名称\u3000</string>
+    <string name="back">返回</string>
+    <string name="confirm">确认</string>
+    <string name="platform_name_hint">如 狱务公开信息发布平台</string>
+    <string name="manager_title_hint">如 湖南省监狱管理局</string>
+    <string name="prison_name_hint">如 湖南省长沙监狱</string>
+
+    <string name="data_get_time">数据同步周期</string>
+
+    <string name="platform_name_defalut">狱务公开信息发布平台</string>
+    <string name="manager_title_defalut">湖南省监狱管理局</string>
+    <string name="prison_name_defalut">湖南省长沙监狱</string>
+    <string name="enter">马上进入</string>
+    <string name="update_default_url">http://api.fir.im/apps/latest/58ef1718959d6945af00014f?api_token=6cd60f899e9566df0f053cfe58a065b5</string>
+
+    <string name="broadcast_server_title">广播服务器地址</string>
+    <string name="hint_broadcast_server">如 http://192.168.1.1:8080</string>
 	<string name="hint_update_server">填写更新服务器地址</string>
 	<string name="hint_state">填写地区</string>
 	<string name="hint_orgid">机构代码</string>
+    <string name="update_version">在线升级</string>
+
+    <string name="laster_version">最新版本</string>
+    <string name="update_content">更新内容</string>
+    <string name="no_data">暂无</string>
+    <string name="update_time">更新时间</string>
+    <string name="current_version">当前版本V</string>
+    <string name="download_update">下载安装</string>
+    <string name="request_failed">获取失败，请检查网络设置</string>
+    <string name="requesting">正在获取版本信息...</string>
+    <string name="downloading">下载中..</string>
+    <string name="download_failed">下载失败</string>
+    <string name="uninstall">卸载应用</string>
+    <string name="broad_hint">请输入广播服务器地址</string>
+
+
+    <string-array  name="protocol">
+        <item>1周</item>
+        <item>1天</item>
+        <item>1小时</item>
+        <item>10分钟</item>
+        <item>1分钟</item>
+        <item>10秒钟</item>
+    </string-array>
+    <integer-array name="protocol_params">
+        <item>604800</item>
+        <item>86400</item>
+        <item>3600</item>
+        <item>600</item>
+        <item>60</item>
+        <item>10</item>
+    </integer-array>
 </resources>

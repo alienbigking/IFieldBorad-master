@@ -8,6 +8,7 @@ import org.ksoap2.serialization.SoapObject;
 import org.ksoap2.serialization.SoapSerializationEnvelope;
 import org.ksoap2.transport.HttpTransportSE;
 
+import com.innotek.ifieldborad.Constants;
 import com.innotek.ifieldborad.activity.StartupActivity;
 
 import android.content.Context;
@@ -25,10 +26,10 @@ public class SoapUtil {
 	 */
 	public static Vector<SoapObject> getResultsFromSoap(Context context){
 		
-		SharedPreferences settings = context.getSharedPreferences(StartupActivity.PREFS_SERVER,
+		SharedPreferences settings = context.getSharedPreferences(Constants.PREFS_SERVER_TABLE,
 												Context.MODE_PRIVATE);
 		
-		String serverIP = settings.getString("broadcastServer", StartupActivity.DEFAULT_BROADCAST_SERVER);
+		String serverIP = settings.getString(Constants.BROADCAST_SERVER, Constants.BROADCAST_SERVER_DEFAULT);
 		// http://service.InfoManage.com/
 		String nameSpace = "http://service.InfoManage.com/";
 		// /InfomationManagement/GetInfomationInfoList?wsdl

@@ -1,65 +1,196 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView   xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:layout_marginTop="100dp"
+    android:scrollbars="none"
+    android:fillViewport="true"
     >
-
-        <EditText
-            android:id="@+id/edit_broadcast_server"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="text"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:hint="@string/hint_broadcast_server" >
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="30dip"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:background="@android:color/white">
+                <TextView
+                    android:id="@+id/tv_broadcast_server_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/common_text_color"
+                    android:layout_marginTop="30dip"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="@string/broadcast_server_title"
+                    />
 
-            <requestFocus />
-        </EditText>
+                <EditText
+                    android:id="@+id/edit_broadcast_server"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tv_broadcast_server_title"
+                    android:inputType="text"
+                    android:maxLines="1"
+                    android:layout_marginTop="10dip"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textColorHint="@color/common_hint_text_color"
+                    android:textColor="@color/common_text_color"
+                    android:hint="@string/hint_broadcast_server" >
 
-        <TextView
-            android:id="@+id/textView1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="30dp" 
-            android:text="@string/text_setup_hint" />
-   
-        <EditText
-            android:id="@+id/edit_update_server"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"           
-            android:inputType="text"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:hint="@string/hint_update_server" />
-        
-        <EditText 
-            android:id="@+id/edit_state"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:inputType="text"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:hint="@string/hint_state"
-            />
+                </EditText>
 
-        
-        <EditText 
-            android:id="@+id/edit_orgid"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:inputType="number"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:hint="@string/hint_orgid"
-            />
-        
-        <Button
-            android:id="@+id/button_setup_ok"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="OK"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:layout_gravity="right" />
-   
-</LinearLayout>
+                <TextView
+                    android:id="@+id/tv_data_get_time_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:layout_alignTop="@+id/sp_time"
+                    android:layout_alignBottom="@+id/sp_time"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textColor="@color/common_gray_title_color"
+                    android:text="@string/data_get_time" />
+                <android.support.v7.widget.AppCompatSpinner
+                    android:id="@+id/sp_time"
+                    android:spinnerMode="dropdown"
+                    android:layout_marginTop="10dip"
+                    android:padding="10dip"
+                    android:layout_toRightOf="@+id/tv_data_get_time_title"
+                    android:overlapAnchor="false"
+                    android:layout_below="@+id/edit_broadcast_server"
+                    android:layout_width="match_parent"
+                    android:background="@android:color/white"
+                    android:entries="@array/protocol"
+                    android:theme="@style/common_spinner"
+                    android:layout_height="wrap_content"/>
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/down"
+                    android:layout_alignRight="@+id/sp_time"
+                    android:layout_alignTop="@+id/sp_time"
+                    android:layout_alignBottom="@+id/sp_time"
+                    android:scaleType="centerInside"
+                    />
+
+                <TextView
+                    android:id="@+id/textView1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="30dp"
+                    android:layout_centerHorizontal="true"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:layout_below="@+id/sp_time"
+                    android:textColor="@color/common_text_color"
+                    android:text="@string/config" />
+
+                <TextView
+                    android:id="@+id/tv_platform_name_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/textView1"
+                    android:layout_alignBottom="@+id/et_platform_name"
+                    android:layout_alignTop="@+id/et_platform_name"
+                    android:gravity="center_vertical"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textColor="@color/common_gray_title_color"
+                    android:text="@string/platform_name" />
+
+                <EditText
+                    android:id="@+id/et_platform_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:inputType="text"
+                    android:maxLines="1"
+                    android:layout_marginLeft="20dip"
+                    android:layout_toRightOf="@+id/tv_platform_name_title"
+                    android:textColor="@color/common_text_color"
+                    android:textColorHint="@color/common_hint_text_color"
+                    android:layout_below="@+id/textView1"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:hint="@string/platform_name_hint" />
+                <TextView
+                    android:id="@+id/tv_manager_title_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/textView1"
+                    android:layout_alignBottom="@+id/et_manager_title"
+                    android:layout_alignTop="@+id/et_manager_title"
+                    android:gravity="center_vertical"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textColor="@color/common_gray_title_color"
+                    android:text="@string/manager_title" />
+                <EditText
+                    android:id="@+id/et_manager_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:inputType="text"
+                    android:maxLines="1"
+                    android:layout_marginLeft="20dip"
+                    android:layout_toRightOf="@+id/tv_manager_title_title"
+                    android:textColor="@color/common_text_color"
+                    android:textColorHint="@color/common_hint_text_color"
+                    android:layout_below="@+id/et_platform_name"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:hint="@string/manager_title_hint"
+                    />
+                <TextView
+                    android:id="@+id/tv_prison_name_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/textView1"
+                    android:layout_alignBottom="@+id/et_prison_name"
+                    android:layout_alignTop="@+id/et_prison_name"
+                    android:gravity="center_vertical"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textColor="@color/common_gray_title_color"
+                    android:text="@string/prison_name" />
+
+                <EditText
+                    android:id="@+id/et_prison_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginLeft="20dip"
+                    android:layout_toRightOf="@+id/tv_prison_name_title"
+                    android:textColor="@color/common_text_color"
+                    android:maxLines="1"
+                    android:textColorHint="@color/common_hint_text_color"
+                    android:layout_below="@+id/et_manager_title"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:hint="@string/prison_name_hint"
+                    />
+
+
+                <Button
+                    android:id="@+id/button_setup_ok"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/enter"
+                    android:layout_marginTop="20dip"
+                    android:layout_alignParentRight="true"
+                    android:layout_below="@+id/et_prison_name"
+                    android:paddingLeft="20dip"
+                    android:paddingRight="20dip"
+                    android:textColor="@android:color/white"
+                    android:background="@drawable/blue_btn_selector"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    />
+
+                <Button
+                    android:id="@+id/button_update"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:paddingLeft="20dip"
+                    android:paddingRight="20dip"
+                    android:background="@drawable/grey_btn_shape"
+                    android:textColor="@android:color/white"
+                    android:layout_alignTop="@+id/button_setup_ok"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="@string/update_version"
+                    />
+
+        </RelativeLayout>
+
+</ScrollView>

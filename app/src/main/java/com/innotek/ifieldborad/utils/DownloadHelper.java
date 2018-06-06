@@ -10,6 +10,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+import com.innotek.ifieldborad.Constants;
 import com.innotek.ifieldborad.activity.StartupActivity;
 
 import android.content.Context;
@@ -30,8 +31,8 @@ public class DownloadHelper {
 	public DownloadHelper(Context context){
 		this.context = context;
 		SharedPreferences settings = context.getSharedPreferences(
-				StartupActivity.PREFS_SERVER, Context.MODE_PRIVATE);
-		imageURL = settings.getString("broadcastServer", StartupActivity.DEFAULT_BROADCAST_SERVER) + "/Info_img/";
+				Constants.PREFS_SERVER_TABLE, Context.MODE_PRIVATE);
+		imageURL = settings.getString(Constants.BROADCAST_SERVER, Constants.BROADCAST_SERVER_DEFAULT) + "/Info_img/";
 	}
 
 	public interface DownloadProgress{

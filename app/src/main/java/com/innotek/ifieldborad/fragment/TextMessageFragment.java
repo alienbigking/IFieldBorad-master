@@ -31,6 +31,7 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 
 
+import com.innotek.ifieldborad.Constants;
 import com.innotek.ifieldborad.R;
 import com.innotek.ifieldborad.activity.StartupActivity;
 import com.innotek.ifieldborad.utils.BitmapDecodeUtil;
@@ -50,6 +51,7 @@ public class TextMessageFragment extends Fragment {
 	private static final String DEFAULT_STATE = "湖南省";
 
 	private TextView mSystemTitle;
+	private TextView mHeaderTitle;
 	private TextView mTitle;
 	private TextView mContent;
 	private TextView mPublisher;
@@ -82,12 +84,17 @@ public class TextMessageFragment extends Fragment {
 
 		View v = inflater.inflate(R.layout.fragment_message, null);
 
-		SharedPreferences spf = getActivity().getSharedPreferences(StartupActivity.PREFS_SERVER,
+		SharedPreferences spf = getActivity().getSharedPreferences(Constants.PREFS_SERVER_TABLE,
 				Context.MODE_PRIVATE);
 
 		mSystemTitle = (TextView)v.findViewById(R.id.sys_title);
-		mSystemTitle.setText(spf.getString("state", DEFAULT_STATE) +
-				getActivity().getResources().getText(R.string.sys_title));
+		mHeaderTitle= (TextView)v.findViewById(R.id.tv_header);
+		SharedPreferences preferences = getActivity().getSharedPreferences(
+				Constants.PREFS_SERVER_TABLE, Context.MODE_PRIVATE);
+		mSystemTitle.setText(preferences.getString(Constants.PRISON_NAME,getString(R.string.prison_name_defalut))+
+				preferences.getString(Constants.PLATFORM_NAME,getString(R.string.platform_name_defalut)));
+		mHeaderTitle.setText(preferences.getString(Constants.MANAGER_TITLE,getString(R.string.manager_title_defalut)));
+
 		mTitle = (TextView)v.findViewById(R.id.text_title);
 		mTitle.setGravity(Gravity.CENTER);
 		mContent = (TextView)v.findViewById(R.id.text_msg);

@@ -11,7 +11,6 @@ import com.innotek.ifieldborad.database.DBAdapter;
 import com.innotek.ifieldborad.utils.ServiceConnectionUtil;
 import com.innotek.ifieldborad.utils.SoapUtil;
 import com.innotek.ifieldborad.utils.UIHandler;
-import com.innotek.ifieldborad.utils.UpgradeApp;
 
 public class MessageService extends IntentService {
 
@@ -30,19 +29,11 @@ public class MessageService extends IntentService {
 
 		try{
 			if(ServiceConnectionUtil.isOnline(this)){
-				if(UpgradeApp.checkToUpgrade(this)){
-					Log.i(TAG, "check update");
-					mMessage = "程序有新版本，更新即将开始";
-					handler.mainProcessiong(mMessage);
-					UpgradeApp.uninstallAPK(this);
-					//UpgradeApp.installAPK(this);
-				} else{
-					Log.i(TAG, "update messages");
-					mMessage = "正在获取播报信息";
-					handler.mainProcessiong(mMessage);
-					adapter.saveMessages(this, SoapUtil.getResultsFromSoap(this));
-					startMainActivity();
-				}
+				Log.i(TAG, "update messages");
+				mMessage = "正在获取播报信息";
+				handler.mainProcessiong(mMessage);
+				adapter.saveMessages(this, SoapUtil.getResultsFromSoap(this));
+				startMainActivity();
 			}else{
 				Log.i(TAG, "Can not connect");
 				mMessage = "无法连接服务器，请检查网络";

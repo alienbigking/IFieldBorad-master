@@ -7,6 +7,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.os.Bundle;
 import android.os.Handler;
@@ -16,6 +17,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.innotek.ifieldborad.Constants;
 import com.innotek.ifieldborad.R;
 import com.innotek.ifieldborad.service.MessageService;
 import com.innotek.ifieldborad.utils.DownloadHelper;
@@ -25,6 +27,7 @@ public class StartupFragment extends Fragment {
 	private TextView mDownloadProgress;
 	private String mText;
 	private TextView mVersionName;
+	private TextView tvTitle;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState){
@@ -38,6 +41,12 @@ public class StartupFragment extends Fragment {
 		mDownloadProgress = (TextView) v.findViewById(R.id.downloadProgress);
 		mDownloadProgress.setText("正在读取发布平台");
 		mVersionName = (TextView) v.findViewById(R.id.version_name);
+		tvTitle= (TextView) v.findViewById(R.id.splash_title);
+		SharedPreferences preferences = getActivity().getSharedPreferences(
+				Constants.PREFS_SERVER_TABLE, Context.MODE_PRIVATE);
+		String title=preferences.getString(Constants.MANAGER_TITLE,getString(R.string.manager_title_defalut))+
+				preferences.getString(Constants.PLATFORM_NAME,getString(R.string.platform_name_defalut));
+		tvTitle.setText(title);
 		return v;
 	}
 
@@ -47,9 +56,9 @@ public class StartupFragment extends Fragment {
 		try {
 			Context context = getActivity();
 			mText = "正在连接服务器...";
-			String versionName = "当前版本1.0.0";
+			String versionName = "";
 			try {
-				versionName = "当前版本" + context.getPackageManager().
+				versionName = getString(R.string.current_version) + context.getPackageManager().
 						getPackageInfo(context.getPackageName(), 0).versionName;
 			} catch (NameNotFoundException e) {
 				e.printStackTrace();

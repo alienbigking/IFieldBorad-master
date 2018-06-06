@@ -1,6 +1,6 @@
 /*
  * This file is auto-generated.  DO NOT MODIFY.
- * Original file: /Users/Raleigh.Luo/Downloads/Borad-master/IFieldBorad-master/app/src/main/aidl/android/content/pm/IPackageMoveObserver.aidl
+ * Original file: /Users/Raleigh.Luo/Documents/ASWorkspace/IFieldBorad-master/app/src/main/aidl/android/content/pm/IPackageMoveObserver.aidl
  */
 package android.content.pm;
 /**

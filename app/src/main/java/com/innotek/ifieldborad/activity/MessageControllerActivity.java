@@ -12,6 +12,7 @@ import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.KeyEvent;
 
+import com.innotek.ifieldborad.Constants;
 import com.innotek.ifieldborad.R;
 import com.innotek.ifieldborad.database.Message;
 import com.innotek.ifieldborad.database.Publicity;
@@ -31,8 +32,7 @@ public class MessageControllerActivity extends BaseActivity {
 
 	private int mCurrentIndex;
 	private ArrayList<Message> mPlayList;
-	private final long DOWN_TIME=10*60*1000;//倒计时 10分钟
-
+	private CountDownTimer mTimer=null;
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -41,6 +41,20 @@ public class MessageControllerActivity extends BaseActivity {
 		mPlayList=MessageDispatcher.getPlayList(this);
 		initFragment(createFragmentWithBundle());
 		setFilter();
+		int time=1000*getSharedPreferences(Constants.PREFS_SERVER_TABLE, Context.MODE_PRIVATE).getInt(Constants.REQUEST_TIME,Constants.REQUEST_TIME_DEFAULT);
+		mTimer=new CountDownTimer(time, 1000) {
+			@Override
+			public void onTick(long millisUntilFinished) {
+//            long second = millisUntilFinished / 1000;
+			}
+
+			@Override
+			public void onFinish() {
+				mTimer.start();
+				Intent netIntent = new Intent(MessageControllerActivity.this, UpdateMessageService.class);
+				startService(netIntent);
+			}
+		};
 	}
 
 	private void setFilter(){
@@ -156,19 +170,7 @@ public class MessageControllerActivity extends BaseActivity {
 		}
 		return false;
 	}
-	private CountDownTimer mTimer=new CountDownTimer(DOWN_TIME, 1000) {
-		@Override
-		public void onTick(long millisUntilFinished) {
-//            long second = millisUntilFinished / 1000;
-		}
 
-		@Override
-		public void onFinish() {
-			mTimer.start();
-			Intent netIntent = new Intent(MessageControllerActivity.this, UpdateMessageService.class);
-			startService(netIntent);
-		}
-	};
 }
 
 

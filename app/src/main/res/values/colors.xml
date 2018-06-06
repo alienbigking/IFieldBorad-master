@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="common_bg">#0a2c50</color>
+    <color name="blue_dark_color">#031b3c</color>
+    <color name="common_light_text_color">#666666</color>
+    <color name="common_line_color">#D7D7D7</color>
+    <color name="common_hint_text_color">#cccccc</color>
+    <color name="common_gray_title_color">#999999</color>
+    <color name="common_text_color">#333333</color>
+    <color name="blue">#6495ed</color>
+    <color name="common_light_blue">#A9B1FD</color>
+</resources>
