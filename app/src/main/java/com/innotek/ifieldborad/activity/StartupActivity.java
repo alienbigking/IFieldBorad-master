@@ -79,25 +79,26 @@ public class StartupActivity extends BaseActivity implements SetupFragment.OnSet
 					dialog.dismiss();
 					Intent netIntent = new Intent(StartupActivity.this, MessageService.class);
 					stopService(netIntent);
-					StartupActivity.super.onBackPressed();
+					finish();
+                    Intent i = new Intent(StartupActivity.this, StartupActivity.class);
+                    i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    StartupActivity.this.startActivity(i);
 				}
 			});
 			builder.setNegativeButton("直接退出", new DialogInterface.OnClickListener() {
 				@Override
 				public void onClick(DialogInterface dialog, int which) {
 					dialog.dismiss();
-//					//		//回到Home主页
-//					Intent intent =new  Intent();
-//					intent.setAction( Intent.ACTION_MAIN);
-//					intent.addCategory(Intent.CATEGORY_HOME);
-//					startActivity(intent);
-					StartupActivity.super.onBackPressed();
+					//回到Home主页
+					Intent intent =new  Intent();
+					intent.setAction( Intent.ACTION_MAIN);
+					intent.addCategory(Intent.CATEGORY_HOME);
+					startActivity(intent);
 				}
 			});
 			builder.create().show();
 		}else {
 			super.onBackPressed();
 		}
-
 	}
 }
