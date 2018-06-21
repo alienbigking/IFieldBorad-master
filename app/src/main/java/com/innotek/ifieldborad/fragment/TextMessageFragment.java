@@ -138,7 +138,8 @@ public class TextMessageFragment extends Fragment {
 		mPublisher.setVisibility(View.GONE);
 		String publishTime=getArguments().getString("publishTime");
 		if(publishTime!=null&&publishTime.length()>19)publishTime=publishTime.substring(0,19);
-		mClock.setText(publishTime==null?"":publishTime);
+//		mClock.setText(publishTime==null?"":publishTime);
+		mClock.setText("");
 		mPicture = (ImageView)v.findViewById(R.id.img_msg);
 //		beginBroadcast();
 		loopImages();

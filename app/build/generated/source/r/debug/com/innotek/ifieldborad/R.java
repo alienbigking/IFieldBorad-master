@@ -1812,7 +1812,15 @@ containing a value of this type.
         public static final int AlertDialog_AppCompat_Light=0x7f080074;
         public static final int Animation_AppCompat_Dialog=0x7f080075;
         public static final int Animation_AppCompat_DropDownUp=0x7f080076;
+        /** 
+            Theme customizations available in newer API levels can go in
+            res/values-vXX/styles.xml, while customizations related to
+            backward-compatibility can go here.
+        
+         */
         public static final int AppBaseTheme=0x7f080077;
+        /**  All customizations that are NOT specific to a particular API-level can go here. 
+         */
         public static final int AppTheme=0x7f080078;
         public static final int Base_AlertDialog_AppCompat=0x7f080079;
         public static final int Base_AlertDialog_AppCompat_Light=0x7f08007a;

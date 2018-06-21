@@ -8,8 +8,8 @@ android {
         applicationId "com.innotek.ifieldborad"
         minSdkVersion 15
         targetSdkVersion 15
-        versionCode 20
-        versionName '1.1.10'
+        versionCode 22
+        versionName '1.1.12'
     }
 
     buildTypes {
