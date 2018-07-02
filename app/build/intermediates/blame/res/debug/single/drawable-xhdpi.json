@@ -36,12 +36,12 @@
         "source": "/Users/Raleigh.Luo/Documents/ASWorkspace/IFieldBorad-master/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.2.0/res/drawable-xhdpi/abc_ic_search_api_mtrl_alpha.png"
     },
     {
-        "merged": "/Users/Raleigh.Luo/Documents/ASWorkspace/IFieldBorad-master/app/build/intermediates/res/merged/debug/drawable-xhdpi/abc_btn_switch_to_on_mtrl_00012.9.png",
-        "source": "/Users/Raleigh.Luo/Documents/ASWorkspace/IFieldBorad-master/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.2.0/res/drawable-xhdpi/abc_btn_switch_to_on_mtrl_00012.9.png"
-    },
-    {
         "merged": "/Users/Raleigh.Luo/Documents/ASWorkspace/IFieldBorad-master/app/build/intermediates/res/merged/debug/drawable-xhdpi/abc_list_longpressed_holo.9.png",
         "source": "/Users/Raleigh.Luo/Documents/ASWorkspace/IFieldBorad-master/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.2.0/res/drawable-xhdpi/abc_list_longpressed_holo.9.png"
+    },
+    {
+        "merged": "/Users/Raleigh.Luo/Documents/ASWorkspace/IFieldBorad-master/app/build/intermediates/res/merged/debug/drawable-xhdpi/abc_btn_switch_to_on_mtrl_00012.9.png",
+        "source": "/Users/Raleigh.Luo/Documents/ASWorkspace/IFieldBorad-master/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.2.0/res/drawable-xhdpi/abc_btn_switch_to_on_mtrl_00012.9.png"
     },
     {
         "merged": "/Users/Raleigh.Luo/Documents/ASWorkspace/IFieldBorad-master/app/build/intermediates/res/merged/debug/drawable-xhdpi/abc_list_pressed_holo_light.9.png",

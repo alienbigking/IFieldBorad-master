@@ -84,16 +84,16 @@
         "source": "/Users/Raleigh.Luo/Documents/ASWorkspace/IFieldBorad-master/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.2.0/res/drawable/abc_switch_thumb_material.xml"
     },
     {
+        "merged": "/Users/Raleigh.Luo/Documents/ASWorkspace/IFieldBorad-master/app/build/intermediates/res/merged/debug/drawable/common_item_click_selector.xml",
+        "source": "/Users/Raleigh.Luo/Documents/ASWorkspace/IFieldBorad-master/app/src/main/res/drawable/common_item_click_selector.xml"
+    },
+    {
         "merged": "/Users/Raleigh.Luo/Documents/ASWorkspace/IFieldBorad-master/app/build/intermediates/res/merged/debug/drawable/abc_list_selector_holo_dark.xml",
         "source": "/Users/Raleigh.Luo/Documents/ASWorkspace/IFieldBorad-master/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.2.0/res/drawable/abc_list_selector_holo_dark.xml"
     },
     {
         "merged": "/Users/Raleigh.Luo/Documents/ASWorkspace/IFieldBorad-master/app/build/intermediates/res/merged/debug/drawable/abc_item_background_holo_dark.xml",
         "source": "/Users/Raleigh.Luo/Documents/ASWorkspace/IFieldBorad-master/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.2.0/res/drawable/abc_item_background_holo_dark.xml"
-    },
-    {
-        "merged": "/Users/Raleigh.Luo/Documents/ASWorkspace/IFieldBorad-master/app/build/intermediates/res/merged/debug/drawable/common_item_click_selector.xml",
-        "source": "/Users/Raleigh.Luo/Documents/ASWorkspace/IFieldBorad-master/app/src/main/res/drawable/common_item_click_selector.xml"
     },
     {
         "merged": "/Users/Raleigh.Luo/Documents/ASWorkspace/IFieldBorad-master/app/build/intermediates/res/merged/debug/drawable/abc_textfield_search_material.xml",
