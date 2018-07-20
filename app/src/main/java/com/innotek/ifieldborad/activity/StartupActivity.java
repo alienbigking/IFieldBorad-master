@@ -35,8 +35,8 @@ public class StartupActivity extends BaseActivity implements SetupFragment.OnSet
 	 */
 	private void prepareFragment(){
 		SharedPreferences settings = getSharedPreferences(Constants.PREFS_SERVER_TABLE, Context.MODE_PRIVATE);
-		String broadcastServer = settings.getString("broadcastServer", null);
-		if(broadcastServer == null){
+		String broadcastServer = settings.getString(Constants.BROADCAST_SERVER, "");
+		if(broadcastServer.length()==0){
 			fragment = new SetupFragment();
 		}else{
 			fragment = new StartupFragment();
@@ -79,10 +79,10 @@ public class StartupActivity extends BaseActivity implements SetupFragment.OnSet
 					dialog.dismiss();
 					Intent netIntent = new Intent(StartupActivity.this, MessageService.class);
 					stopService(netIntent);
-					finish();
                     Intent i = new Intent(StartupActivity.this, StartupActivity.class);
                     i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     StartupActivity.this.startActivity(i);
+					finish();
 				}
 			});
 			builder.setNegativeButton("直接退出", new DialogInterface.OnClickListener() {

@@ -178,10 +178,10 @@ public class MessageControllerActivity extends BaseActivity {
                 dialog.dismiss();
                 stopService( new Intent(MessageControllerActivity.this, MessageService.class));
                 stopService( new Intent(MessageControllerActivity.this, UpdateMessageService.class));
-                finish();
                 Intent i = new Intent(MessageControllerActivity.this, StartupActivity.class);
                 i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_NEW_TASK);
                 MessageControllerActivity.this.startActivity(i);
+                finish();
             }
         });
         builder.setNegativeButton("直接退出", new DialogInterface.OnClickListener() {
