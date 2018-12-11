@@ -37,6 +37,7 @@
 		android:padding="5dip"
 		android:layout_centerHorizontal="true"
 		android:textColor="#FFFFFF"
+        android:textSize="34sp"
 		android:background="@drawable/message_title_bg"
 		android:text="@string/sys_title"
 		android:textAppearance="?android:attr/textAppearanceLarge"
@@ -102,7 +103,7 @@
 				android:layout_height="wrap_content"
 				android:textColor="#FFFFFF"
 				android:scrollbars="none"
-				android:textSize="24sp"
+				android:textSize="34sp"
 				android:lineSpacingExtra="10dip"
 				android:textAppearance="?android:attr/textAppearanceLarge"
 				/>
