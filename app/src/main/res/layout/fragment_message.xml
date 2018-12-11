@@ -81,7 +81,7 @@
 
 		<LinearLayout
 			android:layout_width="0dip"
-			android:layout_weight="1"
+			android:layout_weight="2"
 			android:background="@drawable/message_content_bg"
 			android:layout_height="match_parent"
 			android:orientation="vertical" >
@@ -102,14 +102,16 @@
 				android:layout_height="wrap_content"
 				android:textColor="#FFFFFF"
 				android:scrollbars="none"
-				android:textAppearance="?android:attr/textAppearanceMedium"
+				android:textSize="24sp"
+				android:lineSpacingExtra="10dip"
+				android:textAppearance="?android:attr/textAppearanceLarge"
 				/>
 
 		</LinearLayout>
 
 		<LinearLayout
 			android:layout_width="0dip"
-			android:layout_weight="2"
+			android:layout_weight="1"
 			android:background="@drawable/message_content_bg"
 			android:layout_marginLeft="30dip"
 			android:layout_height="match_parent"
